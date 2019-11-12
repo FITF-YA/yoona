@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoona.dao.StarMapper">
+  <resultMap id="BaseResultMap" type="com.yoona.entity.Star">
+    <id column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="star_name" jdbcType="VARCHAR" property="starName" />
+    <result column="star_sex" jdbcType="INTEGER" property="starSex" />
+    <result column="movie" jdbcType="VARCHAR" property="movie" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+  </resultMap>
+  <resultMap id="retMap" type="com.yoona.entity.Star">
+    <result column="star_name" jdbcType="VARCHAR" property="starName" />
+    <result column="movie" jdbcType="VARCHAR" property="movie" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from star
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoona.entity.Star">
+    insert into star (sid, star_name, star_sex, 
+      movie, created, updated
+      )
+    values (#{sid,jdbcType=INTEGER}, #{starName,jdbcType=VARCHAR}, #{starSex,jdbcType=INTEGER}, 
+      #{movie,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yoona.entity.Star">
+    update star
+    set star_name = #{starName,jdbcType=VARCHAR},
+      star_sex = #{starSex,jdbcType=INTEGER},
+      movie = #{movie,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+  </select>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+    where star_name = #{starName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+    where star_name like concat('%',#{starName},'%')
+  </select>
+  <select id="selectByCondition" parameterType="com.yoona.entity.Star" resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+    <where>
+        <if test="sid != null">
+          sid = #{sid}
+        </if>
+      <if test="starName != null">
+        and star_name = #{starName}
+      </if>
+      <if test="starSex != null">
+        and star_sex = #{starSex}
+      </if>
+      <if test="movie != null">
+        and movie = #{movie}
+      </if>
+      <if test="created != null">
+        and created = #{created}
+      </if>
+      <if test="updated != null">
+        and updated = #{updated}
+      </if>
+    </where>
+  </select>
+  <select id="selectByConditions"  resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+    <where>
+      <if test="starName != null">
+        star_name = #{starName}
+      </if>
+      <if test="movie != null">
+        and movie = #{movie}
+      </if>
+    </where>
+  </select>
+  <select id="selectSomeInfo"  resultMap="retMap">
+    select star_name,movie
+    from star
+  </select>
+  <select id="selectByQueryVo"  resultType="QueryVo">
+    select *
+    from star
+  </select>
+  <select id="showPage"  resultMap="BaseResultMap">
+    select sid, star_name, star_sex, movie, created, updated
+    from star
+    limit #{start}, #{limit}
+  </select>
+  <select id="countStar"  resultType="java.lang.Integer">
+    select count(*)
+    from star
+  </select>
+</mapper>
