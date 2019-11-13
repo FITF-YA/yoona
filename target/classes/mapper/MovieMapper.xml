@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoona.dao.MovieMapper">
+  <resultMap id="BaseResultMap" type="com.yoona.entity.Movie">
+    <id column="mv_id" jdbcType="INTEGER" property="mvId" />
+    <result column="mv_name" jdbcType="VARCHAR" property="mvName" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="updated" jdbcType="TIMESTAMP" property="updated" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from movie
+    where mv_id = #{mvId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoona.entity.Movie">
+    insert into movie (mv_id, mv_name, created, 
+      updated)
+    values (#{mvId,jdbcType=INTEGER}, #{mvName,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.yoona.entity.Movie">
+    update movie
+    set mv_name = #{mvName,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where mv_id = #{mvId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select mv_id, mv_name, created, updated
+    from movie
+    where mv_id = #{mvId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select mv_id, mv_name, created, updated
+    from movie
+  </select>
+</mapper>

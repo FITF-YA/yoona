@@ -1,8 +1,10 @@
 package com.yoona;
 
 import com.yoona.dao.StarMapper;
+import com.yoona.dao.TbBrandMapper;
 import com.yoona.entity.QueryVo;
 import com.yoona.entity.Star;
+import com.yoona.entity.TbBrand;
 import com.yoona.util.PageBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,20 @@ class ApplicationTests {
 
     @Autowired
     private StarMapper starMapper;
+
+    @Autowired
+    private TbBrandMapper tbBrandMapper;
+
+    /**
+     * 查询所有品牌
+     */
+    @Test
+    void getAllBrand(){
+        List<TbBrand> lists = tbBrandMapper.selectAll();
+        lists.forEach(l ->{
+            System.out.println(l);
+        });
+    }
 
     /**
      * 查询所有

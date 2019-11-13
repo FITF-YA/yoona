@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.103.149.168:3306/actor?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=UTC
+    url: jdbc:mysql://47.103.149.168:3306/pinyougoudb?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=UTC
     username: root
     password: GUaidonggua
 #  jackson:
